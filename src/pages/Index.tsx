@@ -1,48 +1,55 @@
 import { useState, useMemo } from "react";
 import Icon from "@/components/ui/icon";
 
-const IMG_ACTION = "https://cdn.poehali.dev/projects/368a17ac-0f37-4e3c-8610-4ddbd09728f8/files/94c54b9d-cdc2-45c5-94bc-a4973ab3da96.jpg";
-const IMG_CARTOON = "https://cdn.poehali.dev/projects/368a17ac-0f37-4e3c-8610-4ddbd09728f8/files/b7f05aff-e988-47f9-92e2-1820aa069247.jpg";
-const IMG_TV = "https://cdn.poehali.dev/projects/368a17ac-0f37-4e3c-8610-4ddbd09728f8/files/e7ded9d7-f56f-4327-bede-09b7ee352445.jpg";
+const IMG_GEROYCHIKI = "https://cdn.poehali.dev/projects/368a17ac-0f37-4e3c-8610-4ddbd09728f8/files/2d2874ac-57b9-4ab7-bd77-cd222db31fe4.jpg";
+const IMG_NEZVANIY = "https://cdn.poehali.dev/projects/368a17ac-0f37-4e3c-8610-4ddbd09728f8/files/f6c7c50d-7e3c-4004-b044-f9a7b82d0d02.jpg";
+const IMG_NEWS = "https://cdn.poehali.dev/projects/368a17ac-0f37-4e3c-8610-4ddbd09728f8/files/3ba1fd59-d48f-4b05-b031-2c1555b700ee.jpg";
+const IMG_SPORT = "https://cdn.poehali.dev/projects/368a17ac-0f37-4e3c-8610-4ddbd09728f8/files/6792afe3-0591-4fa8-be99-50aa7d9bfe3d.jpg";
+const IMG_KIDS = "https://cdn.poehali.dev/projects/368a17ac-0f37-4e3c-8610-4ddbd09728f8/files/b8b15b55-4771-45ec-9415-2ac02f5da151.jpg";
+const IMG_ENT = "https://cdn.poehali.dev/projects/368a17ac-0f37-4e3c-8610-4ddbd09728f8/files/764b56f1-7def-46d9-b496-6b59a9ee34a2.jpg";
 
 type Section = "home" | "cartoons" | "movies" | "tv";
 
 const MOVIES = [
-  { id: 1, title: "Стражи Галактики", year: 2023, genre: "Экшн", rating: 8.7, img: IMG_ACTION, badge: "new", hd: true, type: "movies" },
-  { id: 2, title: "Дюна: Часть вторая", year: 2024, genre: "Фантастика", rating: 9.1, img: IMG_TV, badge: "new", hd: true, type: "movies" },
-  { id: 3, title: "Оппенгеймер", year: 2023, genre: "Драма", rating: 8.9, img: IMG_ACTION, badge: null, hd: true, type: "movies" },
-  { id: 4, title: "Прошлые жизни", year: 2023, genre: "Мелодрама", rating: 8.1, img: IMG_CARTOON, badge: null, hd: false, type: "movies" },
-  { id: 5, title: "Бедные-несчастные", year: 2023, genre: "Комедия", rating: 7.9, img: IMG_TV, badge: null, hd: true, type: "movies" },
-  { id: 6, title: "Мастер и Маргарита", year: 2024, genre: "Мистика", rating: 8.4, img: IMG_ACTION, badge: "new", hd: true, type: "movies" },
+  { id: 1, title: "Геройчики: Незваный гость", year: 2024, genre: "Мультфильм", rating: 8.5, img: IMG_NEZVANIY, badge: "new", hd: true, type: "movies" },
 ];
 
 const CARTOONS = [
-  { id: 7, title: "Смешарики: Возрождение", year: 2024, genre: "Приключения", rating: 8.2, img: IMG_CARTOON, badge: "new", hd: true, type: "cartoons" },
-  { id: 8, title: "Маша и Медведь", year: 2023, genre: "Комедия", rating: 8.8, img: IMG_ACTION, badge: null, hd: false, type: "cartoons" },
-  { id: 9, title: "Фиксики: Большой секрет", year: 2023, genre: "Семейный", rating: 7.5, img: IMG_TV, badge: null, hd: true, type: "cartoons" },
-  { id: 10, title: "Три богатыря", year: 2024, genre: "Приключения", rating: 7.9, img: IMG_CARTOON, badge: "new", hd: true, type: "cartoons" },
-  { id: 11, title: "Лунтик. Новый сезон", year: 2024, genre: "Семейный", rating: 8.0, img: IMG_ACTION, badge: null, hd: false, type: "cartoons" },
-  { id: 12, title: "Барбоскины", year: 2023, genre: "Комедия", rating: 7.6, img: IMG_TV, badge: null, hd: true, type: "cartoons" },
+  { id: 2, title: "Геройчики", year: 2024, genre: "Приключения", rating: 9.0, img: IMG_GEROYCHIKI, badge: "new", hd: true, type: "cartoons" },
 ];
 
 const TV_CHANNELS = [
-  { id: 13, title: "Первый канал", genre: "Новости / Развлечения", rating: null, img: IMG_TV, live: true, type: "tv" },
-  { id: 14, title: "Россия 1", genre: "Информация / Драмы", rating: null, img: IMG_ACTION, live: true, type: "tv" },
-  { id: 15, title: "НТВ", genre: "Новости / Криминал", rating: null, img: IMG_CARTOON, live: true, type: "tv" },
-  { id: 16, title: "Карусель", genre: "Детский канал", rating: null, img: IMG_TV, live: true, type: "tv" },
-  { id: 17, title: "ТНТ", genre: "Юмор / Реалити", rating: null, img: IMG_ACTION, live: false, type: "tv" },
-  { id: 18, title: "СТС", genre: "Семейный / Сериалы", rating: null, img: IMG_CARTOON, live: true, type: "tv" },
+  { id: 3,  title: "Первый канал",  genre: "Новости / Развлечения", rating: null, img: IMG_NEWS,  live: true,  type: "tv" },
+  { id: 4,  title: "Россия 1",      genre: "Информация / Драмы",    rating: null, img: IMG_NEWS,  live: true,  type: "tv" },
+  { id: 5,  title: "Матч ТВ",       genre: "Спорт",                 rating: null, img: IMG_SPORT, live: true,  type: "tv" },
+  { id: 6,  title: "НТВ",           genre: "Новости / Кино",        rating: null, img: IMG_NEWS,  live: true,  type: "tv" },
+  { id: 7,  title: "Пятый канал",   genre: "Новости / Сериалы",     rating: null, img: IMG_NEWS,  live: true,  type: "tv" },
+  { id: 8,  title: "Россия К",      genre: "Культура",              rating: null, img: IMG_ENT,   live: true,  type: "tv" },
+  { id: 9,  title: "Россия 24",     genre: "Новости 24/7",          rating: null, img: IMG_NEWS,  live: true,  type: "tv" },
+  { id: 10, title: "Карусель",      genre: "Детский",               rating: null, img: IMG_KIDS,  live: true,  type: "tv" },
+  { id: 11, title: "ОТР",           genre: "Общественное ТВ",       rating: null, img: IMG_NEWS,  live: true,  type: "tv" },
+  { id: 12, title: "ТВ Центр",      genre: "Новости / Кино",        rating: null, img: IMG_NEWS,  live: true,  type: "tv" },
+  { id: 13, title: "Рен ТВ",        genre: "Документальные / Кино", rating: null, img: IMG_ENT,   live: true,  type: "tv" },
+  { id: 14, title: "Спас",          genre: "Православный канал",    rating: null, img: IMG_NEWS,  live: true,  type: "tv" },
+  { id: 15, title: "СТС",           genre: "Семейный / Сериалы",    rating: null, img: IMG_ENT,   live: true,  type: "tv" },
+  { id: 16, title: "Домашний",      genre: "Семья / Кулинария",     rating: null, img: IMG_ENT,   live: true,  type: "tv" },
+  { id: 17, title: "ТВ-3",          genre: "Мистика / Фантастика",  rating: null, img: IMG_ENT,   live: true,  type: "tv" },
+  { id: 18, title: "Пятница!",      genre: "Реалити / Развлечения", rating: null, img: IMG_ENT,   live: true,  type: "tv" },
+  { id: 19, title: "Звезда",        genre: "Военные / История",     rating: null, img: IMG_NEWS,  live: true,  type: "tv" },
+  { id: 20, title: "Мир",           genre: "СНГ / Новости",         rating: null, img: IMG_NEWS,  live: true,  type: "tv" },
+  { id: 21, title: "ТНТ",           genre: "Юмор / Реалити",        rating: null, img: IMG_ENT,   live: true,  type: "tv" },
+  { id: 22, title: "Муз-ТВ",        genre: "Музыка / Клипы",        rating: null, img: IMG_ENT,   live: true,  type: "tv" },
 ];
 
 const ALL_CONTENT = [...MOVIES, ...CARTOONS, ...TV_CHANNELS];
 
 const TICKER_ITEMS = [
-  "🔥 Новинка: Дюна: Часть вторая",
-  "⭐ ТОП рейтинга: Оппенгеймер",
-  "🎬 Эксклюзив: Мастер и Маргарита",
+  "🦸 Новинка: Геройчики — смотреть онлайн!",
+  "🎬 Фильм: Геройчики: Незваный гость",
   "📺 В прямом эфире: Первый канал",
-  "🎭 Рекомендуем: Прошлые жизни",
-  "🚀 Новый сезон: Смешарики",
+  "⚽ Спорт в прямом эфире: Матч ТВ",
+  "🎵 Музыка и клипы: Муз-ТВ",
+  "👨‍👩‍👧 Детское: Карусель — 24/7",
 ];
 
 export default function Index() {
@@ -206,18 +213,18 @@ export default function Index() {
         {/* HERO — Home only */}
         {section === "home" && (
           <div className="relative rounded-2xl overflow-hidden mb-10 animate-fade-in" style={{ minHeight: 380 }}>
-            <img src={IMG_ACTION} alt="Hero" className="absolute inset-0 w-full h-full object-cover" />
+            <img src={IMG_GEROYCHIKI} alt="Hero" className="absolute inset-0 w-full h-full object-cover" />
             <div className="hero-overlay absolute inset-0" />
             <div className="relative z-10 flex flex-col justify-end p-8" style={{ minHeight: 380 }}>
               <div className="flex gap-2 mb-3">
                 <span className="badge-new">Новинка</span>
-                <span className="badge-hd">4K HDR</span>
+                <span className="badge-hd">HD</span>
               </div>
               <h1 style={{ fontFamily: "'Oswald', sans-serif" }} className="text-4xl sm:text-5xl font-bold text-white mb-2 uppercase tracking-wide">
-                Стражи Галактики
+                Геройчики
               </h1>
               <p className="text-gray-300 text-sm sm:text-base mb-5 max-w-lg">
-                Команда отважных героев снова в деле. Эпическое космическое приключение, которое изменит всё.
+                Весёлые и отважные герои готовы спасти мир! Смотри новый мультсериал прямо сейчас.
               </p>
               <div className="flex items-center gap-4 flex-wrap">
                 <button className="play-btn flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold">
@@ -233,7 +240,7 @@ export default function Index() {
                 </button>
                 <div className="flex items-center gap-1 font-bold" style={{ color: "#ffd700" }}>
                   <Icon name="Star" size={16} />
-                  <span>8.7</span>
+                  <span>9.0</span>
                 </div>
               </div>
             </div>
